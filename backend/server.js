@@ -14,9 +14,16 @@ const app = express();
 connectDB();
 
 // Middleware
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+const corsOptions = {
+  origin: [
+    'http://localhost:3000',
+    'https://tu-app.netlify.app', // ⬅️ Agrega tu URL de Netlify
+    'https://cruz-verde-sistema.netlify.app' // Ejemplo
+  ],
+  credentials: true
+};
+
+app.use(cors(corsOptions));
 
 // Rutas
 app.use('/api/auth', authRoutes);
