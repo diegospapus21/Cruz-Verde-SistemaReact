@@ -8,10 +8,6 @@ const Reports = () => {
   const [reports, setReports] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    loadReports();
-  }, [loadReports]);
-
   const loadReports = useCallback(async () => {
     setLoading(true);
     try {
@@ -23,6 +19,10 @@ const Reports = () => {
       setLoading(false);
     }
   }, [selectedMonth, selectedYear]);
+
+  useEffect(() => {
+    loadReports();
+  }, [loadReports]);
 
   const exportToCSV = () => {
     const headers = ['Nombre', 'Email', 'Asistencias', 'Horas Totales', 'Estado'];

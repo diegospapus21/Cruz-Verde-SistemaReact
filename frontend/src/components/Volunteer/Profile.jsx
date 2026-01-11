@@ -5,17 +5,12 @@ import { getMyAttendances } from '../../Services/api';
 
 const Profile = () => {
   const { user } = useContext(AuthContext);
-  const [attendances, setAttendances] = useState([]);
   const [stats, setStats] = useState({
     total: 0,
     thisMonth: 0,
     totalHours: 0,
     avgHours: 0
   });
-
-  useEffect(() => {
-    loadAttendances();
-  }, [loadAttendances]);
 
   const loadAttendances = useCallback(async () => {
     try {
@@ -26,6 +21,10 @@ const Profile = () => {
       console.error('Error cargando asistencias:', error);
     }
   }, []);
+
+  useEffect(() => {
+    loadAttendances();
+  }, [loadAttendances]);
 
   const calculateStats = (data) => {
     const now = new Date();
