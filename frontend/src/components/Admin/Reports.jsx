@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { CheckCircle, XCircle, Download, Calendar } from 'lucide-react';
-import { getReports, getVolunteers } from '../../Services/api';
+import { getReports } from '../../Services/api';
 
 const Reports = () => {
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
@@ -10,9 +10,9 @@ const Reports = () => {
 
   useEffect(() => {
     loadReports();
-  }, [selectedMonth, selectedYear]);
+  }, [loadReports]);
 
-  const loadReports = async () => {
+  const loadReports = useCallback(async () => {
     setLoading(true);
     try {
       const response = await getReports({ month: selectedMonth, year: selectedYear });
@@ -22,7 +22,7 @@ const Reports = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [selectedMonth, selectedYear]);
 
   const exportToCSV = () => {
     const headers = ['Nombre', 'Email', 'Asistencias', 'Horas Totales', 'Estado'];

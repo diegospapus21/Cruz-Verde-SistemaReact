@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import { User, Calendar, Clock, TrendingUp } from 'lucide-react';
 import { AuthContext } from '../../context/AuthContext';
 import { getMyAttendances } from '../../Services/api';
@@ -15,18 +15,17 @@ const Profile = () => {
 
   useEffect(() => {
     loadAttendances();
-  }, []);
+  }, [loadAttendances]);
 
-  const loadAttendances = async () => {
+  const loadAttendances = useCallback(async () => {
     try {
       const response = await getMyAttendances();
       const data = response.data.data;
-      setAttendances(data);
       calculateStats(data);
     } catch (error) {
       console.error('Error cargando asistencias:', error);
     }
-  };
+  }, []);
 
   const calculateStats = (data) => {
     const now = new Date();

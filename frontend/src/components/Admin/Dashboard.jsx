@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Users, CheckCircle, Calendar, TrendingUp } from 'lucide-react';
-import { getStats, getAllAttendances, getVolunteers } from '../../Services/api';
+import { getStats, getAllAttendances } from '../../Services/api';
 
 const Dashboard = () => {
   const [stats, setStats] = useState({
